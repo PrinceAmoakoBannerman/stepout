@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: 248 248 251;
+    --surface: 255 255 255;
+    --raised: 243 243 248;
+    --line: 226 226 236;
+    --fg: 11 11 31;
+    --muted: 104 106 130;
+  }
+
+  .dark {
+    --bg: 8 8 22;
+    --surface: 17 17 38;
+    --raised: 26 26 52;
+    --line: 42 42 74;
+    --fg: 240 240 250;
+    --muted: 150 152 180;
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  html,
+  body,
+  #root {
+    @apply min-h-full;
+  }
+
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-green ring-offset-2 ring-offset-bg rounded-md;
+  }
+
+  ::selection {
+    @apply bg-magenta/25;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* The horizon rule — the road out of the StepOut pin, used to mark sections. */
+  .horizon-rule {
+    @apply h-[3px] w-14 rounded-full bg-horizon;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.18em] text-muted;
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-surface shadow-card;
+  }
+
+  .shell {
+    @apply mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8;
+  }
+
+  .link-quiet {
+    @apply text-muted transition-colors hover:text-fg;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden rounded-lg bg-raised;
+  }
+
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5;
+  }
+}
+
+/* Leaflet lives outside Tailwind's reset — keep it on-brand. */
+.leaflet-container {
+  @apply h-full w-full bg-raised font-sans;
+  z-index: 0;
+}
+.leaflet-control-attribution {
+  @apply bg-surface/80 text-[10px] text-muted;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  @apply bg-surface text-fg shadow-lift;
+}
+.leaflet-popup-content {
+  margin: 0;
+  width: 244px !important;
+}
+.leaflet-popup-close-button {
+  @apply text-muted;
+}
+.dark .leaflet-tile {
+  filter: invert(1) hue-rotate(190deg) brightness(0.92) contrast(0.92) saturate(0.7);
+}
+.stepout-marker {
+  background: transparent;
+  border: 0;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

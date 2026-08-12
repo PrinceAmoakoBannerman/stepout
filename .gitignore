@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Env files (never commit real secrets)
+.env
+.env.*
+!.env.example
+*.local
+
+# Editor/OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Local Claude Code tooling config (machine-specific, not part of the app)
+.claude/
