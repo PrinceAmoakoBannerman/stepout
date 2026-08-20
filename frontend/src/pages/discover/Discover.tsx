@@ -1,14 +1,12 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { isAfter, isBefore, parseISO } from 'date-fns';
-import { ArrowRight, MapPin, Search, Sparkles } from 'lucide-react';
+import { ArrowRight, MapPin, Search } from 'lucide-react';
 import type { EventItem } from '@/types';
 import { useApp } from '@/store/AppContext';
-import { categories } from '@/data/categories';
 import { organizers } from '@/data/organizers';
 import { cities } from '@/data/cities';
 import { EventCard, FeaturedEventCard } from '@/components/events/EventCard';
-import { CategorySlideshow } from '@/components/events/CategorySlideshow';
 import { Slideshow } from '@/components/common/Slideshow';
 import { OrganizerCard } from '@/components/events/OrganizerCard';
 import { QuickView } from '@/components/events/QuickView';
@@ -96,13 +94,6 @@ export const Discover = () => {
   }, [live]);
 
   const featured = useMemo(() => live.filter((e) => e.featured).slice(0, 3), [live]);
-  const counts = useMemo(
-    () =>
-      Object.fromEntries(
-        categories.map((c) => [c.id, live.filter((e) => e.category === c.id).length]),
-      ) as Record<string, number>,
-    [live],
-  );
 
   const submitSearch = () => navigate(query.trim() ? `/events?q=${encodeURIComponent(query.trim())}` : '/events');
 
@@ -144,10 +135,7 @@ export const Discover = () => {
             Accra · {live.length} things happening
           </p>
           <h1 className="mt-4 max-w-3xl font-display text-4xl font-extrabold leading-[1.05] text-white sm:text-6xl lg:text-7xl">
-            Find your next{' '}
-            <span className="bg-gradient-to-r from-sun via-ember to-magenta bg-clip-text text-transparent">
-              thing.
-            </span>
+            Find your next <span className="text-sun">thing.</span>
           </h1>
           <p className="mt-5 max-w-xl text-base text-white/75 sm:text-lg">
             Discover concerts, parties, sports, food, tech and everything happening around Accra.
@@ -192,17 +180,6 @@ export const Discover = () => {
       </section>
 
       <div className="shell space-y-16 py-14 sm:space-y-20">
-        {/* Quick categories */}
-        <section>
-          <SectionHeader
-            eyebrow="Browse"
-            title="What are you in the mood for?"
-            href="/categories"
-            hrefLabel="All categories"
-          />
-          <CategorySlideshow categories={categories} counts={counts} />
-        </section>
-
         {/* Tonight */}
         <section>
           <SectionHeader
@@ -227,7 +204,7 @@ export const Discover = () => {
         <section>
           <SectionHeader
             eyebrow="Moving fast"
-            title="Trending in Accra 🔥"
+            title="Trending in Accra"
             subtitle="What the city is saving and sharing this week."
             href="/events?sort=popular"
           />
@@ -248,10 +225,7 @@ export const Discover = () => {
           />
           {!user?.interests.length && (
             <div className="mb-5 flex flex-col items-start gap-3 rounded-2xl border border-green/25 bg-green/5 p-5 sm:flex-row sm:items-center sm:justify-between">
-              <p className="flex items-center gap-2 text-sm font-semibold">
-                <Sparkles className="h-4 w-4 text-green" />
-                Tell StepOut what you're into and this row gets sharper.
-              </p>
+              <p className="text-sm font-semibold">Tell StepOut what you're into and this row gets sharper.</p>
               <Button size="sm" to={user ? '/onboarding/interests' : '/register'} icon={<ArrowRight className="h-4 w-4" />}>
                 {user ? 'Pick interests' : 'Create an account'}
               </Button>
@@ -275,7 +249,7 @@ export const Discover = () => {
             href="/for-organizers"
             hrefLabel="Become an organizer"
           />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {organizers.slice(0, 3).map((o) => (
               <OrganizerCard key={o.id} organizer={o} />
             ))}

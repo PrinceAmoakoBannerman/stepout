@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { BadgeCheck, Bookmark, CalendarCheck, Edit3, LogOut, Settings, Sparkles, Ticket } from 'lucide-react';
+import { BadgeCheck, Bookmark, CalendarCheck, Edit3, LogOut, Settings, Ticket } from 'lucide-react';
 import { useApp } from '@/store/AppContext';
 import { Avatar } from '@/components/common/Avatar';
 import { Button } from '@/components/common/Button';
@@ -163,10 +163,7 @@ export const Profile = () => {
 
       {tab === 'interests' && (
         <div className="space-y-6 max-w-2xl">
-          <div className="flex items-center gap-3">
-            <Sparkles className="h-5 w-5 text-green" />
-            <h2 className="font-display text-xl font-bold">Your interests</h2>
-          </div>
+          <h2 className="font-display text-xl font-bold">Your interests</h2>
           <p className="text-sm text-muted">These shape what appears in your "Picked for your vibe" row on the home page.</p>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {categories.map(cat => {
@@ -183,7 +180,7 @@ export const Profile = () => {
               );
             })}
           </div>
-          <Button loading={saving} onClick={saveInterests} icon={<Sparkles className="h-4 w-4" />}>Save interests</Button>
+          <Button loading={saving} onClick={saveInterests}>Save interests</Button>
         </div>
       )}
 

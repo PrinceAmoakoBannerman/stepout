@@ -56,7 +56,7 @@ export const CheckIn = () => {
           {state === 'idle' && (
             <div className="absolute inset-0 overflow-hidden rounded-2xl">
               <div className="animate-[shimmer_2.5s_linear_infinite] absolute inset-x-0 h-1 bg-green/60"
-                style={{ top: '50%', boxShadow: '0 0 8px rgba(139,61,255,.6)' }} />
+                style={{ top: '50%', boxShadow: '0 0 8px rgba(14,143,91,.6)' }} />
             </div>
           )}
         </div>
